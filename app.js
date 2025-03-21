@@ -3,6 +3,7 @@ const cors = require('cors');
 const { message } = require('laravel-mix/src/Log');
 
 const contactsRouter = require("./app/routes/contact.route");
+const ApiError = require("./app/api_error");
 
 const app = express();
 
@@ -14,5 +15,20 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/contacts", contactsRouter);
+
+app.use("/api/contacts", contactsRouter);
+
+//handle 404 reponse
+app.use((req, res, next) => {
+    //running code when route don't valication
+    return next(new ApiError(404, "Resource not found"));
+});
+
+//define error-handling middleware last, after other app.use() and routes calles
+app.use((error, req, res, next) => {
+    return res.status(error.statusCode || 500).json({
+        message: error.message || "Internal server error",
+    });
+ });
 
 module.exports = app;
