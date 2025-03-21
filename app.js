@@ -16,7 +16,6 @@ app.get("/", (req, res) => {
 
 app.use("/api/contacts", contactsRouter);
 
-app.use("/api/contacts", contactsRouter);
 
 //handle 404 reponse
 app.use((req, res, next) => {
