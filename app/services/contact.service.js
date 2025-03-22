@@ -31,6 +31,17 @@ class ContactService {
         );
         return result;
     }
+
+    async find(filter) {
+        const curror = await this.Contact.find(filter);
+        return await curror.toArray();
+    }
+
+    async findByName(name) {
+        return await this.find({
+            name: { $regex: new RegExp(new RegExp(name)), $options: "i" },
+        }  );
+    }
 }
 
 module.exports = ContactService;
