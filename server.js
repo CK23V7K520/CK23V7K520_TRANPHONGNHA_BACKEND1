@@ -10,8 +10,12 @@ const MongoDB = require("./app/utils/mongodb.util");
 
 async function startServer() {
     try {
+        // console.log(config);
+        // console.log(MongoDB);
+        console.log(config.db?.uri);
+
         await MongoDB.connect(config.db.uri);
-        console.log("Connect to the database");
+        console.log("Connect to the database!");
 
         const PORT = config.app.port;
         app.listen(PORT, () => {
