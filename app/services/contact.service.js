@@ -3,7 +3,7 @@ const { ObjectId } = require("mongodb");
 class ContactService {
     constructor(client) {
         this.Contact = client.db().collection("contacts");
-    }
+    };
 
     //Dinh nghia cac phuong thuc
     extractConactData(payload) {
@@ -29,7 +29,8 @@ class ContactService {
             { $set: { favorite: contact.favorite === true } },
             { returnDocument: "after", upsert: true}
         );
+        return result;
     }
 }
 
-module.exports = ContactService();
+module.exports = ContactService;
